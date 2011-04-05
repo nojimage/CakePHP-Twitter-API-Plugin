@@ -292,8 +292,8 @@ class TwitterStatus extends TwitterAppModel {
   public function save($data = null, $validate = true, $fieldList = array()) {
     $this->request['auth'] = true;
     $result = parent::save($data, $validate, $fieldList);
-    if ($result && !empty($this->response['id'])) {
-      $this->setInsertID($this->response['id']);
+    if ($result && !empty($this->response['id_str'])) {
+      $this->setInsertID($this->response['id_str']);
     }
     return $result;
   }
