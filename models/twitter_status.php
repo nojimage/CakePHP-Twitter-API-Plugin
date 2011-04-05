@@ -162,6 +162,34 @@ class TwitterStatus extends TwitterAppModel {
   }
 
   /**
+   * show
+   * -------------
+   *
+   *     TwitterStatus::find('show', $options)
+   *
+   * @param $state string 'before' or 'after'
+   * @param $query array
+   * @param $results array
+   * @return mixed
+   * @access protected
+   * */
+  protected function _findShow($state, $query = array(), $results = array()) {
+    if ($state === 'before') {
+      if (empty($query['id'])) {
+        return false;
+      }
+      $this->request = array(
+        'uri' => array('path' => '1/statuses/show/' . $query['id']),
+      );
+      unset($query['id']);
+      $this->request['uri']['query'] = array_intersect_key($query, array_flip($this->allowedFindOptions['show']));
+        return $query;
+      } else {
+        return $results;
+      }
+    }
+
+  /**
    * Retweeted By
    * -------------
    *
