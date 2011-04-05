@@ -97,16 +97,16 @@ class TwitterStatus extends TwitterAppModel {
    * @var array
    */
   public $allowedFindOptions = array(
-    'publicTimeline'  => array('skip_user', 'include_rts', 'include_entities'),
-    'homeTimeline'    => array('since_id', 'max_id', 'count', 'page', 'skip_user', 'include_entities'),
-    'userTimeline'    => array('since_id', 'max_id', 'count', 'page', 'skip_user', 'include_rts', 'include_entities', 'id', 'user_id', 'screen_name'),
-    'mentions'        => array('since_id', 'max_id', 'count', 'page', 'include_rts', 'include_entities'),
-    'retweetedByMe'   => array('since_id', 'max_id', 'count', 'page'),
-    'retweetedToMe'   => array('since_id', 'max_id', 'count', 'page'),
-    'retweetsOfMe'    => array('since_id', 'max_id', 'count', 'page'),
-    'show'            => array('id'),
-    'retweets'        => array('count', 'id'),
-    'retweetedBy'     => array('count', 'page', 'id'),
+    'publicTimeline' => array('trim_user', 'include_entities'),
+    'homeTimeline' => array('since_id', 'max_id', 'count', 'page', 'trim_user', 'include_entities'),
+    'userTimeline' => array('user_id', 'screen_name', 'since_id', 'max_id', 'count', 'page', 'trim_user', 'include_rts', 'include_entities'),
+    'mentions' => array('since_id', 'max_id', 'count', 'page', 'trim_user', 'include_rts', 'include_entities'),
+    'retweetedByMe' => array('since_id', 'max_id', 'count', 'page', 'trim_user', 'include_entities'),
+    'retweetedToMe' => array('since_id', 'max_id', 'count', 'page', 'trim_user', 'include_entities'),
+    'retweetsOfMe' => array('since_id', 'max_id', 'count', 'page', 'trim_user', 'include_entities'),
+    'show' => array('id', 'trim_user', 'include_entities'),
+    'retweets' => array('id', 'count', 'trim_user', 'include_entities'),
+    'retweetedBy' => array('id', 'count', 'page', 'trim_user', 'include_entities'),
   );
 
   /**
