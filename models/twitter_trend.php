@@ -22,7 +22,7 @@
  * @see       http://dev.twitter.com/doc/get/trends/1
  *
  */
-class TwitterTrend extends TwimAppModel {
+class TwitterTrend extends TwitterAppModel {
 
     /**
      * Custom find types available on this model

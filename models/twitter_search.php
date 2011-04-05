@@ -17,7 +17,7 @@
  * @see http://dev.twitter.com/doc/get/search
  *
  */
-class TwitterSearch extends TwimAppModel {
+class TwitterSearch extends TwitterAppModel {
 
     /**
      * Custom find types available on this model
