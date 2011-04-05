@@ -308,16 +308,28 @@ class TwitterStatus extends TwitterAppModel {
   public function delete($id = null, $cascade = true) {
     $this->request = array(
       'uri' => array(
-        'path' => '1/statuses/destroy',
-        'query' => array(
-          'id' => $id,
-        ),
+        'path' => '1/statuses/destroy/' . $id,
       ),
+      'method' => 'POST',
       'auth' => true,
     );
     return parent::delete($id, $cascade);
   }
 
-}
+  /**
+   * Returns true if a status with the currently set ID exists.
+   *
+   * @return boolean True if such a status exists
+   * @access public
+   */
+  function exists() {
+    if ($this->getID() === false) {
+      return false;
+    }
+    $_request = $this->request;
+    $result = $this->find('show', array('id' => $this->getID()));
+    $this->request = $_request;
+    return!empty($result);
+  }
 
-?>
+}
