@@ -74,6 +74,7 @@ class TwitterStatus extends TwitterAppModel {
     'retweetsOfMe' => true,
     'retweets' => true,
     'retweetedBy' => true,
+    'retweetedByIds' => true,
   );
 
   /**
@@ -89,7 +90,8 @@ class TwitterStatus extends TwitterAppModel {
     'retweetedByMe',
     'retweetedToMe',
     'retweetsOfMe',
-    'retweetedBy'
+    'retweetedBy',
+    'retweetedByIds',
   );
 
   /**
@@ -109,6 +111,7 @@ class TwitterStatus extends TwitterAppModel {
     'show' => array('id', 'trim_user', 'include_entities'),
     'retweets' => array('id', 'count', 'trim_user', 'include_entities'),
     'retweetedBy' => array('id', 'count', 'page', 'trim_user', 'include_entities'),
+    'retweetedByIds' => array('id', 'count', 'page', 'trim_user', 'include_entities'),
   );
 
   /**
@@ -266,6 +269,40 @@ class TwitterStatus extends TwitterAppModel {
   }
 
   /**
+     * Retweeted By Ids
+     * -------------
+     *
+     *     TwitterStatus::find('retweetedByIds', $options)
+     *
+     * @param $state string 'before' or 'after'
+     * @param $query array
+     * @param $results array
+     * @return mixed
+     * @access protected
+     * */
+    protected function _findRetweetedByIds($state, $query = array(), $results = array()) {
+        if ($state === 'before') {
+            if (empty($query['id'])) {
+                return false;
+            }
+            $this->request = array(
+                'uri' => array(
+                    'path' => '1/statuses/' . $query['id'] . '/retweeted_by/ids'
+                ),
+                'auth' => true,
+            );
+            unset($query['id']);
+            if ($query['count'] > 100) {
+                $query['count'] = 100;
+            }
+            $this->request['uri']['query'] = array_intersect_key($query, array_flip($this->allowedFindOptions['retweetedBy']));
+            return $query;
+        } else {
+            return $results;
+        }
+    }
+
+    /**
    * Creates a tweet
    * 
    * @param mixed $data
