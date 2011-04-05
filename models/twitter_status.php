@@ -261,6 +261,10 @@ class TwitterStatus extends TwitterAppModel {
         ),
         'auth' => true,
       );
+      unset($query['id']);
+      if ($query['count'] > 100) {
+        $query['count'] = 100;
+      }
       $this->request['uri']['query'] = array_intersect_key($query, array_flip($this->allowedFindOptions['retweetedBy']));
       return $query;
     } else {
