@@ -65,6 +65,7 @@ class TwitterStatus extends TwitterAppModel {
   public $_findMethods = array(
     'publicTimeline' => true,
     'homeTimeline' => true,
+    'friendsTimeline' => true,
     'userTimeline' => true,
     'mentions' => true,
     'retweetedByMe' => true,
@@ -82,6 +83,7 @@ class TwitterStatus extends TwitterAppModel {
    */
   public $findMethodsRequiringAuth = array(
     'homeTimeline',
+    'friendsTimeline',
     'userTimeline',
     'mentions',
     'retweetedByMe',
@@ -99,6 +101,7 @@ class TwitterStatus extends TwitterAppModel {
   public $allowedFindOptions = array(
     'publicTimeline' => array('trim_user', 'include_entities'),
     'homeTimeline' => array('since_id', 'max_id', 'count', 'page', 'trim_user', 'include_entities'),
+    'friendsTimeline' => array('since_id', 'max_id', 'count', 'page', 'trim_user', 'include_rts', 'include_entities'),
     'userTimeline' => array('user_id', 'screen_name', 'since_id', 'max_id', 'count', 'page', 'trim_user', 'include_rts', 'include_entities'),
     'mentions' => array('since_id', 'max_id', 'count', 'page', 'trim_user', 'include_rts', 'include_entities'),
     'retweetedByMe' => array('since_id', 'max_id', 'count', 'page', 'trim_user', 'include_entities'),
