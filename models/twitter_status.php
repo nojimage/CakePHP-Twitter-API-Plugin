@@ -89,7 +89,6 @@ class TwitterStatus extends TwitterAppModel {
     'retweetedByMe',
     'retweetedToMe',
     'retweetsOfMe',
-    'retweets',
     'retweetedBy'
   );
 
@@ -193,6 +192,34 @@ class TwitterStatus extends TwitterAppModel {
     }
 
   /**
+     * retweets
+     * -------------
+     *
+     *     TwitterStatus::find('retweets', $options)
+     *
+     * @param $state string 'before' or 'after'
+     * @param $query array
+     * @param $results array
+     * @return mixed
+     * @access protected
+     * */
+    protected function _findRetweets($state, $query = array(), $results = array()) {
+        if ($state === 'before') {
+            if (empty($query['id'])) {
+                return false;
+            }
+            $this->request = array(
+                'uri' => array('path' => '1/statuses/retweets/' . $query['id']),
+            );
+            unset($query['id']);
+            $this->request['uri']['query'] = array_intersect_key($query, array_flip($this->allowedFindOptions['show']));
+            return $query;
+        } else {
+            return $results;
+        }
+    }
+
+    /**
    * Retweeted By
    * -------------
    *
